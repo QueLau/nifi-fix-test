@@ -10,30 +10,30 @@ jobs:
   steps:
   - name: Checkout main branch
     uses: actions/checkout@v3
-	       
+
   - name: Set up JDK
     uses: actions/setup-java@v3
     with:
      java-version: '8'
      distribution: 'temurin'
      cache: 'maven'
-	        
+
   - name: Set up Apache Maven Central
     uses: actions/setup-java@v1
     with:
      java-version: '8'
-	
+
   - name: Git clone
     run: git clone https://github.com/apache/nifi
-	
+
   - name: Move to the target folder
     run: cd nifi
-      
+
   - name: Compile the test
     run: mvn install -DskipTests -am -pl nifi-nar-bundles/nifi-ldap-iaa-providers-bundle/nifi-ldap-iaa-providers
-	
+
   - name: Run the test without nondex
     run: mvn test -pl nifi-nar-bundles/nifi-ldap-iaa-providers-bundle/nifi-ldap-iaa-providers -Dtest='org.apache.nifi.ldap.tenants.LdapUserGroupProviderTest#testSearchGroupsWithNameAndUserIdentityCnAttribute'
-        
+ 
   - name: Run the test with nondex 
     run: mvn edu.illinois:nondex-maven-plugin:2.1.1:nondex -pl nifi-nar-bundles/nifi-ldap-iaa-providers-bundle/nifi-ldap-iaa-providers -DnondexRuns=10 -Dtest='org.apache.nifi.ldap.tenants.LdapUserGroupProviderTest#testSearchGroupsWithNameAndUserIdentityCnAttribute'
