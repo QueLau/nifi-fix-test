@@ -9,6 +9,9 @@ jobs:
   runs-on: windows-latest	
 
   steps:
+  - name: Git config
+    run: git config --global core.longpaths true
+
   - name: Checkout main branch
     uses: actions/checkout@v3
 
