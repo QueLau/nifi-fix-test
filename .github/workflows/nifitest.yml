@@ -1,9 +1,11 @@
 name: flakynifitest
-	
+
 on: [push,pull_request]
 
 jobs:
+
  build:
+ 
   runs-on: windows-latest	
   steps:
   - name: Checkout main branch
@@ -26,7 +28,7 @@ jobs:
 	
   - name: Move to the target folder
     run: cd nifi
-        
+      
   - name: Compile the test
     run: mvn install -DskipTests -am -pl nifi-nar-bundles/nifi-ldap-iaa-providers-bundle/nifi-ldap-iaa-providers
 	
